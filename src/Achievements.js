@@ -10,7 +10,7 @@ const Achievements = () => {
         {achievements.map((achievement, index) => (
           <div key={index} className="achievement-card">
             <div className="achievement-img">
-              <a href={achievement.img} target='_blank'>
+              <a href={achievement.img} rel="noreferrer">
                 <img src={achievement.img} alt={`Achievement ${index + 1}`} />
               </a>
             </div>

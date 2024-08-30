@@ -23,7 +23,7 @@ const Home = () => {
                         />
                     </b></h1>
                     <h2>BackEnd Developer</h2>
-                    <a href={resume} target="_blank" className="cta-button">My Resume</a>
+                    <a href={resume} rel="noreferrer" className="cta-button">My Resume</a>
                 </div>
             </div>
         </div>

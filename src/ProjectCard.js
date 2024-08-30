@@ -12,7 +12,7 @@ const ProjectCard = ({ project, isImageLeft }) => {
                     <h3 className={styles.heading}>{project.title}</h3>
                     <p className={styles.subheading}>{project.sub}</p>
                     <p className={styles.content}>{project.description}</p>
-                    <a href={project.link}>
+                    <a href={project.link} rel="noreferrer">
                     <button type="button" class="btn btn-dark">Detail</button>
                     </a>
                 </div>

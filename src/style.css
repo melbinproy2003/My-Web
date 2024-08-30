@@ -197,8 +197,7 @@ body {
 }
 
 .nav-link {
-    color: #f7f7f7;
-    /* Light gray text color for links */
+    color: #f7f7f7; /* Light gray text color for links */
     text-decoration: none;
     font-weight: bold;
     padding: 10px 15px;
@@ -207,11 +206,23 @@ body {
 }
 
 .nav-link:hover {
-    background-color: #f7c14d;
-    /* Yellow background on hover */
-    color: #000000;
-    /* Black text color on hover */
+    background-color: #f7c14d; /* Yellow background on hover */
+    color: #000000; /* Black text color on hover */
 }
+
+.navbar-toggler {
+    border-color: #f7f7f7; /* Light gray border for toggler */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='%23f7f7f7' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    /* Custom color for the hamburger icon */
+}
+
+.navbar-light .navbar-brand {
+    color: #f7f7f7; /* Light gray brand color */
+}
+
 
 /* Contact Section */
 .contact-section {

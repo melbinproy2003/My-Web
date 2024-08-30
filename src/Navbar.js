@@ -4,26 +4,36 @@ import './style.css';
 const Navbar = () => {
     return (
         <>
-            <ul className="nav justify-content-center">
-                <li className="nav-item">
-                    <a className="nav-link" href="#About">About</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#Skills">Skills</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#Timeline">Career</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#Project">Project</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#Achievements">Achievements</a>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#Contact">Contact</a>
-                </li>
-            </ul>
+            <nav className="navbar navbar-expand-lg navbar-light bg-black">
+                <div className="container-fluid">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+                        <ul className="navbar-nav nav">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#About">About</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Skills">Skills</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Timeline">Career</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Project">Project</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Achievements">Achievements</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
 
             <a href="#Home" className="fixed-button" rel="noreferrer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="yellow" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">

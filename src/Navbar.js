@@ -4,7 +4,7 @@ import './style.css';
 const Navbar = () => {
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-black">
+            {/* <nav className="navbar navbar-expand-lg navbar-light bg-black">
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> */}
 
 
             <a href="#Home" className="fixed-button" rel="noreferrer">

@@ -6,6 +6,36 @@ import resume from './Images/Melbin P Roy (Resume).pdf';
 const Home = () => {
     return (
         <div id="Home">
+             <nav className="navbar navbar-expand-lg navbar-light bg-black">
+                <div className="container-fluid">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+                        <ul className="navbar-nav nav">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#About">About</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Skills">Skills</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Timeline">Career</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Project">Project</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Achievements">Achievements</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#Contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
             <div className="hero-section">
                 <div className="content">
                     <h1><b>

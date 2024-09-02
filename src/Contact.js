@@ -27,6 +27,11 @@ function Contact() {
                             GitHub Profile
                         </a>
                     </div>
+                    <div className="contact-item">
+                        <a href="https://www.linkedin.com/in/melbin-p-roy">
+                            <img src="https://img.shields.io/badge/-LinkedIn-blue.svg?style=plastic&logo=linkedin&logoColor=white" alt="LinkedIn">
+                        </a>
+        </div>
                 </div>
             </section >
         </div>

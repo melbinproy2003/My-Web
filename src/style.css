@@ -224,22 +224,22 @@ body {
 }
 
 
-/* Contact Section */
 .contact-section {
-    padding: 50px;
-    background-color: rgba(255, 255, 255, 0.1);
+    padding: 60px 20px;
+    background: #000000;
     color: #ffffff;
+    text-align: center;
 }
 
 .contact-section h1 {
-    color: #e0b446;
-    margin-bottom: 30px;
+    color: #f7c14d;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .contact-info {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
     margin-top: 20px;
 }
@@ -247,47 +247,41 @@ body {
 .contact-details {
     display: flex;
     justify-content: space-around;
-    width: 60%;
-    margin-bottom: 20px;
+    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .contact-item {
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
-    margin: 0 15px;
-    transition: color 0.3s ease;
+    margin: 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .contact-item a {
     color: #ffffff;
     text-decoration: none;
-    margin-left: 10px;
-    transition: color 0.3s ease;
-}
-
-.contact-item:hover a {
-    color: #f7c14d;
-}
-
-.icon {
-    color: #f7c14d;
     font-size: 1.5em;
-    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-item a:hover {
+    color: #f7c14d;
+    transform: translateY(-5px);
+}
+
+.contact-item svg {
+    font-size: 2em;
     transition: transform 0.3s ease;
 }
 
-.contact-item:hover .icon {
-    transform: scale(1.1);
+.contact-item a:hover svg {
+    transform: scale(1.2);
 }
 
-.contact-github {
-    margin-top: 20px;
-}
 
-.contact-github .contact-item {
-    justify-content: center;
-}
 
 /* Achievements section */
 .achievements-container {

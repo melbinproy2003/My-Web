@@ -85,14 +85,14 @@ body {
     font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;
-    border-radius: 25px;
-    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    transition-duration: 0.5s;
 }
 
 .cta-button:hover {
     background-color: #e0b446;
-    /* Darker yellow for button hover */
-    transform: scale(1.05);
+    transition-duration: 0.5s;
+    border-radius: 25px;
 }
 
 .profile-image {

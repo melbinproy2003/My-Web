@@ -55,9 +55,9 @@ export default function Home() {
           </motion.p>
 
           <motion.div className="hero-actions" {...fadeUp(0.4)}>
-            <a href={resume} download className="btn btn-green">
+            {/* <a href={resume} download className="btn btn-green">
               <FiDownload /> Download Resume
-            </a>
+            </a> */}
             <a href="#contact" className="btn btn-ghost" onClick={scrollToContact}>
               <FiMail /> Contact Me
             </a>

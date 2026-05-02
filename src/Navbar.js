@@ -1,47 +1,127 @@
-import React from 'react';
-import './style.css';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiMenu, FiX } from 'react-icons/fi';
 
-const Navbar = () => {
-    return (
-        <>
-            {/* <nav className="navbar navbar-expand-lg navbar-light bg-black">
-                <div className="container-fluid">
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul className="navbar-nav nav">
-                            <li className="nav-item">
-                                <a className="nav-link" href="#About">About</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#Skills">Skills</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#Timeline">Career</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#Project">Project</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#Achievements">Achievements</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#Contact">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav> */}
+const NAV_LINKS = [
+  { label: 'Home',           href: '#home' },
+  { label: 'About',          href: '#about' },
+  { label: 'Skills',         href: '#skills' },
+  { label: 'Experience',     href: '#experience' },
+  { label: 'Projects',       href: '#projects' },
+  { label: 'Certifications', href: '#achievements' },
+  { label: 'Contact',        href: '#contact' },
+];
 
+function scrollTo(href) {
+  const el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
 
-            <a href="#Home" className="fixed-button" rel="noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="yellow" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4.854 1.146a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L4 2.707V12.5A2.5 2.5 0 0 0 6.5 15h8a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 12.5V2.707l3.146 3.147a.5.5 0 1 0 .708-.708z" />
-                </svg>
-            </a>
-        </>
+export default function Navbar() {
+  const [scrolled, setScrolled]   = useState(false);
+  const [menuOpen, setMenuOpen]   = useState(false);
+  const [active, setActive]       = useState('home');
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
+      },
+      { threshold: 0.35 }
     );
-};
+    document.querySelectorAll('section[id]').forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
-export default Navbar;
+  const handleLink = (e, href) => {
+    e.preventDefault();
+    scrollTo(href);
+    setMenuOpen(false);
+  };
+
+  return (
+    <>
+      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+        <div className="nav-inner">
+          <motion.a
+            href="#home"
+            className="nav-logo"
+            onClick={(e) => handleLink(e, '#home')}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Melbin<span>.</span>
+          </motion.a>
+
+          <motion.ul
+            className="nav-links"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={active === link.href.slice(1) ? 'active' : ''}
+                  onClick={(e) => handleLink(e, link.href)}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </motion.ul>
+
+          <button className="hamburger" onClick={() => setMenuOpen((o) => !o)} aria-label="Menu">
+            {menuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              className="mobile-menu"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleLink(e, link.href)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      <AnimatePresence>
+        {scrolled && (
+          <motion.button
+            className="scroll-top-btn"
+            onClick={() => scrollTo('#home')}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.2 }}
+            aria-label="Back to top"
+          >
+            ↑
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

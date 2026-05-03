@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { ReactTyped } from 'react-typed';
-import { FiDownload, FiMail } from 'react-icons/fi';
+import { FiMail, FiGithub, FiLinkedin } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import profileImg from './Images/My photo(2).jpg';
-import resume from './Images/Melbin P Roy (Resume).pdf';
 
 const fadeUp = (delay = 0) => ({
   initial:  { opacity: 0, y: 40 },
@@ -11,10 +11,6 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Home() {
-  const scrollToContact = (e) => {
-    e.preventDefault();
-    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <section id="home">
@@ -55,11 +51,21 @@ export default function Home() {
           </motion.p>
 
           <motion.div className="hero-actions" {...fadeUp(0.4)}>
-            {/* <a href={resume} download className="btn btn-green">
-              <FiDownload /> Download Resume
-            </a> */}
-            <a href="#contact" className="btn btn-ghost" onClick={scrollToContact}>
+            <Link to="/contact" className="btn btn-ghost">
               <FiMail /> Contact Me
+            </Link>
+          </motion.div>
+
+          <motion.div className="hero-social" {...fadeUp(0.5)}>
+            <span className="hero-social-line" />
+            <a href="https://github.com/melbinproy2003" className="social-dot" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <FiGithub size={18} />
+            </a>
+            <a href="https://www.linkedin.com/in/melbin-p-roy" className="social-dot" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <FiLinkedin size={18} />
+            </a>
+            <a href="mailto:melbinproy76@gmail.com" className="social-dot" aria-label="Email">
+              <FiMail size={18} />
             </a>
           </motion.div>
         </div>
@@ -75,6 +81,12 @@ export default function Home() {
             <div className="ring-spinner" />
             <div className="ring-mask" />
             <img src={profileImg} alt="Melbin P Roy" className="profile-photo" />
+
+            {/* ── Floating badges ── */}
+            <span className="hero-badge badge-1">AI Engineer</span>
+            <span className="hero-badge badge-2">Flutter</span>
+            <span className="hero-badge badge-3">Python</span>
+            <span className="hero-badge badge-4">React</span>
           </div>
         </motion.div>
       </div>

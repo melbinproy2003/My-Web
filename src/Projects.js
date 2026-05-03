@@ -1,49 +1,54 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiArrowUpRight } from 'react-icons/fi';
 import { projects } from './updates';
 
-function ProjectCard({ project, index }) {
-  const col = index % 3;
+function ProjectRow({ project, index }) {
+  const [hovered, setHovered] = useState(false);
+  const num = String(index + 1).padStart(2, '0');
 
   return (
     <motion.div
-      className="project-card"
-      initial={{ opacity: 0, y: 50 }}
+      className={`proj-row${hovered ? ' proj-row--hovered' : ''}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.5, delay: col * 0.1 }}
-      whileHover={{ y: -6 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: index * 0.07 }}
     >
-      <img src={project.image} alt={project.title} className="project-img" />
-      <div className="project-body">
-        <h3 className="project-title">{project.title}</h3>
-        <p className="project-desc">{project.description}</p>
-        <div className="project-tags">
-          {project.tech.map((t) => (
-            <span key={t} className="tag">{t}</span>
-          ))}
+      <div className="proj-row-left">
+        <span className="proj-row-num">{num}</span>
+        <div className="proj-row-info">
+          <h3 className="proj-row-title">{project.title}</h3>
+          <p className="proj-row-desc">{project.description}</p>
+          <div className="proj-row-tags">
+            {project.tech.map((t) => (
+              <span key={t} className="tag">{t}</span>
+            ))}
+          </div>
         </div>
-        <div className="project-links-row">
+      </div>
+
+      <div className="proj-row-right">
+        <div className={`proj-thumb${hovered ? ' proj-thumb--visible' : ''}`}>
+          <img src={project.image} alt={project.title} />
+        </div>
+        <div className="proj-row-actions">
           {project.github && (
             <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="proj-link"
+              className="proj-icon-link"
+              onClick={(e) => e.stopPropagation()}
             >
-              <FiGithub size={15} /> GitHub
+              <FiGithub size={20} />
             </a>
           )}
-          {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="proj-link"
-            >
-              <FiExternalLink size={15} /> Live Demo
-            </a>
-          )}
+          <span className={`proj-arrow${hovered ? ' proj-arrow--active' : ''}`}>
+            <FiArrowUpRight size={24} />
+          </span>
         </div>
       </div>
     </motion.div>
@@ -65,12 +70,10 @@ export default function Projects() {
         <div className="divider" />
       </div>
 
-      <div className="projects-wrap">
-        <div className="projects-grid">
-          {projects.map((p, i) => (
-            <ProjectCard key={p.id} project={p} index={i} />
-          ))}
-        </div>
+      <div className="projects-list-wrap">
+        {projects.map((p, i) => (
+          <ProjectRow key={p.id} project={p} index={i} />
+        ))}
       </div>
     </section>
   );

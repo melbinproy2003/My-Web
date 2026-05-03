@@ -1,26 +1,19 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { NavLink, Link } from 'react-router-dom';
+import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 const NAV_LINKS = [
-  { label: 'Home',           href: '#home' },
-  { label: 'About',          href: '#about' },
-  { label: 'Skills',         href: '#skills' },
-  { label: 'Experience',     href: '#experience' },
-  { label: 'Projects',       href: '#projects' },
-  { label: 'Certifications', href: '#achievements' },
-  { label: 'Contact',        href: '#contact' },
+  { label: 'Home',     to: '/' },
+  { label: 'About',    to: '/about' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Contact',  to: '/contact' },
 ];
-
-function scrollTo(href) {
-  const el = document.querySelector(href);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
 
 export default function Navbar() {
   const [scrolled, setScrolled]   = useState(false);
   const [menuOpen, setMenuOpen]   = useState(false);
-  const [active, setActive]       = useState('home');
+  const { scrollYProgress }       = useScroll();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -28,37 +21,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
-      },
-      { threshold: 0.35 }
-    );
-    document.querySelectorAll('section[id]').forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
-
-  const handleLink = (e, href) => {
-    e.preventDefault();
-    scrollTo(href);
-    setMenuOpen(false);
-  };
-
   return (
     <>
+      {/* ── Scroll progress bar ── */}
+      <motion.div
+        className="scroll-progress"
+        style={{ scaleX: scrollYProgress }}
+      />
+
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="nav-inner">
-          <motion.a
-            href="#home"
-            className="nav-logo"
-            onClick={(e) => handleLink(e, '#home')}
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Melbin<span>.</span>
-          </motion.a>
+            <Link to="/" className="nav-logo">
+              Melbin<span>.</span>
+            </Link>
+          </motion.div>
 
           <motion.ul
             className="nav-links"
@@ -67,14 +48,14 @@ export default function Navbar() {
             transition={{ duration: 0.5, delay: 0.15 }}
           >
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className={active === link.href.slice(1) ? 'active' : ''}
-                  onClick={(e) => handleLink(e, link.href)}
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  end={link.to === '/'}
+                  className={({ isActive }) => isActive ? 'active' : ''}
                 >
                   {link.label}
-                </a>
+                </NavLink>
               </li>
             ))}
           </motion.ul>
@@ -94,13 +75,15 @@ export default function Navbar() {
               transition={{ duration: 0.25 }}
             >
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleLink(e, link.href)}
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === '/'}
+                  className={({ isActive }) => isActive ? 'active' : ''}
+                  onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
-                </a>
+                </NavLink>
               ))}
             </motion.div>
           )}
@@ -111,7 +94,7 @@ export default function Navbar() {
         {scrolled && (
           <motion.button
             className="scroll-top-btn"
-            onClick={() => scrollTo('#home')}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}

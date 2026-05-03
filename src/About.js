@@ -1,11 +1,55 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import profileImg from './Images/My photo(2).jpg';
 
 const STATS = [
-  { value: '2+',  label: 'Years Exp.' },
-  { value: '5+',  label: 'Projects' },
-  { value: '15+', label: 'Technologies' },
+  { target: 2,  suffix: '+', label: 'Years Exp.' },
+  { target: 5,  suffix: '+', label: 'Projects' },
+  { target: 15, suffix: '+', label: 'Technologies' },
 ];
+
+const TECH_CATEGORIES = [
+  { label: 'Frontend',  items: ['React', 'JavaScript', 'HTML', 'CSS'] },
+  { label: 'Backend',   items: ['Python', 'Django', 'FastAPI', 'Node.js'] },
+  { label: 'Mobile',    items: ['Flutter', 'React Native'] },
+  { label: 'AI / ML',   items: ['LangChain', 'OpenAI API', 'TensorFlow'] },
+  { label: 'DevOps',    items: ['Docker', 'AWS', 'Azure'] },
+];
+
+function Counter({ target, suffix, label, delay = 0 }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (v) => Math.round(v));
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(count, target, {
+      duration: 1.6,
+      ease: 'easeOut',
+      delay,
+    });
+    return controls.stop;
+  }, [inView, count, target, delay]);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="stat-box"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay }}
+    >
+      <span className="stat-value">
+        <motion.span>{rounded}</motion.span>
+        {suffix}
+      </span>
+      <span className="stat-label">{label}</span>
+    </motion.div>
+  );
+}
 
 export default function About() {
   return (
@@ -58,32 +102,42 @@ export default function About() {
             in DevOps and Cybersecurity.
           </p>
 
+          {/* ── Stats ── */}
           <div className="about-stats">
             {STATS.map((s, i) => (
-              <motion.div
+              <Counter
                 key={s.label}
-                className="stat-box"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
-              >
-                <span className="stat-value">{s.value}</span>
-                <span className="stat-label">{s.label}</span>
-              </motion.div>
+                target={s.target}
+                suffix={s.suffix}
+                label={s.label}
+                delay={0.2 + i * 0.1}
+              />
             ))}
           </div>
 
-          <a
-            href="#contact"
-            className="btn btn-green"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+          {/* ── Tech stack ── */}
+          <motion.div
+            className="about-tech"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
+            {TECH_CATEGORIES.map((cat) => (
+              <div key={cat.label} className="tech-row">
+                <span className="tech-cat-label">{cat.label}</span>
+                <div className="tech-pills">
+                  {cat.items.map((item) => (
+                    <span key={item} className="tech-pill">{item}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          <Link to="/contact" className="btn btn-green">
             Let's Connect
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -1,44 +1,31 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { skillCategories } from './updates';
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.07 } },
-  exit: { opacity: 0, transition: { duration: 0.15 } },
-};
+const allSkills = skillCategories.flatMap((c) => c.skills);
+const row1 = allSkills;
+const row2 = [...allSkills].reverse();
 
-const cardVariants = {
-  hidden:  { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.38, ease: 'easeOut' } },
-};
-
-function SkillCard({ skill }) {
+function SkillPill({ skill }) {
   const [error, setError] = useState(false);
-
   return (
-    <motion.div className="skill-card" variants={cardVariants} whileHover={{ y: -4 }}>
+    <div className="skill-pill">
       {skill.icon && !error ? (
         <img
-          className="skill-icon"
           src={`https://skillicons.dev/icons?i=${skill.icon}`}
           alt={skill.name}
+          className="skill-pill-icon"
           onError={() => setError(true)}
         />
       ) : (
-        <div className="skill-fallback">
-          {skill.name.charAt(0)}
-        </div>
+        <div className="skill-pill-fallback">{skill.name.charAt(0)}</div>
       )}
-      <span className="skill-name">{skill.name}</span>
-    </motion.div>
+      <span className="skill-pill-name">{skill.name}</span>
+    </div>
   );
 }
 
 export default function Skills() {
-  const [active, setActive] = useState(skillCategories[0].id);
-  const current = skillCategories.find((c) => c.id === active);
-
   return (
     <section id="skills">
       <div className="section-header">
@@ -53,40 +40,29 @@ export default function Skills() {
         <div className="divider" />
       </div>
 
-      <div className="skills-wrap">
-        <motion.div
-          className="tabs"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          {skillCategories.map((cat) => (
-            <button
-              key={cat.id}
-              className={`tab-btn${active === cat.id ? ' active' : ''}`}
-              onClick={() => setActive(cat.id)}
-            >
-              {cat.name}
-            </button>
-          ))}
-        </motion.div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            className="skills-grid"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            {current.skills.map((skill) => (
-              <SkillCard key={skill.name} skill={skill} />
+      <motion.div
+        className="marquee-wrapper"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <div className="marquee-track-wrap">
+          <div className="marquee-track marquee-left">
+            {[...row1, ...row1].map((skill, i) => (
+              <SkillPill key={`r1-${i}`} skill={skill} />
             ))}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+          </div>
+        </div>
+
+        <div className="marquee-track-wrap">
+          <div className="marquee-track marquee-right">
+            {[...row2, ...row2].map((skill, i) => (
+              <SkillPill key={`r2-${i}`} skill={skill} />
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }

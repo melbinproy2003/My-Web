@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function ExpCard({ item, index }) {
   const rowRef = useRef(null);
+  const { current } = item;
 
   useEffect(() => {
     const el = rowRef.current;
@@ -38,7 +39,7 @@ function ExpCard({ item, index }) {
         );
 
         // Pulse animation for current job
-        if (item.current) {
+        if (current) {
           gsap.to(dot, {
             boxShadow: '0 0 0 8px rgba(68, 185, 108, 0.3)',
             repeat: -1,
@@ -64,7 +65,7 @@ function ExpCard({ item, index }) {
     });
 
     return () => ctx.revert();
-  }, [index, item.current]);
+  }, [index, current]);
 
   return (
     <div className={`exp-row ${index % 2 === 0 ? 'left' : 'right'}`} ref={rowRef}>

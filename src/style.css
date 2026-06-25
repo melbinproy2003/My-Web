@@ -515,15 +515,18 @@ section {
 /* Overlapping Portrait Image */
 .hero-portrait-img {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 125%;
+  bottom: -40px;
+  /* Shifts the image down to hide the transparent canvas padding */
+  left: -5%;
+  width: 110%;
+  height: 145%;
   /* Pops out above the frame */
   object-fit: cover;
   object-position: bottom center;
   z-index: 3;
   filter: drop-shadow(0 16px 32px rgba(27, 26, 24, 0.22));
+  clip-path: inset(-200% -100% 40px -100% round 0 0 20px 20px);
+  /* Clips exactly at the bottom of the card with the rounded corners, while letting top/sides overlap */
   transform-origin: bottom center;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
@@ -531,7 +534,8 @@ section {
 
 /* Hover effects */
 .hero-portrait-wrapper:hover .hero-portrait-img {
-  transform: scale(1.05) translateY(-5px);
+  transform: scale(1.05);
+  /* Scales from bottom origin, keeping bottom aligned */
 }
 
 .hero-portrait-wrapper:hover .hero-portrait-card {

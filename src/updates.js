@@ -3,10 +3,6 @@ import img2 from './Images/Book-Hub.webp';
 import img3 from './Images/Tourist-destinations.jpeg';
 import img4 from './Images/ED-Book.jpeg';
 import img5 from './Images/Baby-Care.png';
-import img6 from './Images/python internship.png';
-import img7 from './Images/clound computing.png';
-import img8 from './Images/python programming.png';
-import img9 from './Images/jsp+android.png';
 
 export const skillCategories = [
   {
@@ -166,36 +162,5 @@ export const projects = [
     image: img5,
     github: 'https://github.com/melbinproy2003/Baby-care',
     live: null,
-  },
-];
-
-export const achievements = [
-  {
-    id: 1,
-    title: 'Python Full Stack Internship',
-    issuer: 'Inmakes Infotech',
-    date: 'April 2024',
-    image: img6,
-  },
-  {
-    id: 2,
-    title: 'Cloud Computing & Cybersecurity',
-    issuer: 'GITH Global India Techno Hub',
-    date: 'April 2022',
-    image: img7,
-  },
-  {
-    id: 3,
-    title: 'Python Programming',
-    issuer: 'GITH Global India Techno Hub',
-    date: 'May 2023',
-    image: img8,
-  },
-  {
-    id: 4,
-    title: 'JSP + Android Development',
-    issuer: 'Progressive Software Solutions',
-    date: 'April 2024',
-    image: img9,
   },
 ];

@@ -17,15 +17,14 @@ export default function Home() {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       // Staggered load-in sequence
-      tl.fromTo('.hero-pre', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 })
-        .fromTo('.hero-title-main', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.4')
+      tl.fromTo('.hero-title-main', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 })
         .fromTo('.hero-subtitle', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
-        .fromTo(photoRef.current, { opacity: 0, scale: 0.95, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 1 }, '-=0.7')
-        .fromTo('.hero-description', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.7')
-        .fromTo(ctaRef.current?.children || [], { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, '-=0.5')
-        .fromTo('.hero-decor-line.horizontal', { scaleX: 0 }, { scaleX: 1, duration: 0.8 }, '-=0.6')
-        .fromTo(socialRef.current?.children || [], { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.1 }, '-=0.5')
-        .fromTo('.hero-float-sidebar', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=1');
+        .fromTo(photoRef.current, { opacity: 0, scale: 0.95, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 1 }, '-=0.4')
+        .fromTo('.hero-description', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
+        .fromTo('.hero-actions > *', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }, '-=0.4')
+        .fromTo('.hero-decor-line.horizontal', { scaleX: 0 }, { scaleX: 1, duration: 0.8 }, '-=0.4')
+        .fromTo('.hero-socials-wrap > *', { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.1 }, '-=0.4')
+        .fromTo('.hero-float-sidebar', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.7');
 
       // Parallax scroll on portrait card wrapper
       gsap.to(photoRef.current, {
@@ -69,11 +68,11 @@ export default function Home() {
         <div className="hero-layout-grid">
           {/* Left: Copy & Actions */}
           <div className="hero-text-col">
-            <div className="hero-pre" style={{ opacity: 0 }}>
+            {/* <div className="hero-pre" style={{ opacity: 0 }}>
               <div className="availability-pill">
                 <span /> Available for new opportunities
               </div>
-            </div>
+            </div> */}
 
             <h1 className="hero-title-main" style={{ opacity: 0 }}>
               Melbin <br />
@@ -104,12 +103,12 @@ export default function Home() {
               <div className="hero-decor-line horizontal" style={{ transform: 'scaleX(0)' }} />
               <div className="hero-footer-content">
                 {/* Signature */}
-                <div className="hero-signature">
+                {/* <div className="hero-signature">
                   <svg viewBox="0 0 200 60" width="140" height="42">
-                    <path d="M15 35c15-20 25-30 35-10 10 20 20 20 30 0 10-20 20-10 30 5 10 15 20 15 30-10 10-25 20-15 30 5l20 5" 
-                          fill="none" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M15 35c15-20 25-30 35-10 10 20 20 20 30 0 10-20 20-10 30 5 10 15 20 15 30-10 10-25 20-15 30 5l20 5"
+                      fill="none" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </div>
+                </div> */}
                 {/* Socials */}
                 <div className="hero-socials-wrap" ref={socialRef}>
                   <a href="https://github.com/melbinproy2003" target="_blank" rel="noreferrer" style={{ opacity: 0 }}><FiGithub size={18} /></a>

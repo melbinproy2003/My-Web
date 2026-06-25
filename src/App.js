@@ -1,77 +1,44 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Navbar from './Navbar';
 import Home from './Home';
+import Projects from './Projects';
 import About from './About';
 import WhatIDo from './WhatIDo';
 import Skills from './Skills';
 import Timeline from './Timeline';
-import Projects from './Projects';
-import Achievements from './Achievements';
 import Contact from './Contact';
 
-const pageVariants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-  exit:    { opacity: 0, y: -20, transition: { duration: 0.25 } },
-};
-
-function PageWrapper({ children }) {
-  return (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-      {children}
-    </motion.div>
-  );
-}
-
-function HomePage() {
-  return <PageWrapper><Home /></PageWrapper>;
-}
-
-function AboutPage() {
-  return (
-    <PageWrapper>
-      <About />
-      <WhatIDo />
-      <Skills />
-      <Timeline />
-      <Achievements />
-    </PageWrapper>
-  );
-}
-
-function ProjectsPage() {
-  return <PageWrapper><Projects /></PageWrapper>;
-}
-
-function ContactPage() {
-  return <PageWrapper><Contact /></PageWrapper>;
-}
-
-function AnimatedRoutes() {
-  const location = useLocation();
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/"         element={<HomePage />} />
-        <Route path="/about"    element={<AboutPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/contact"  element={<ContactPage />} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 function App() {
+  useEffect(() => {
+    // Refresh ScrollTrigger after all content loads
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
-      <AnimatedRoutes />
+      <main className="one-page">
+        <Home />
+        <Projects />
+        <About />
+        <WhatIDo />
+        <Skills />
+        <Timeline />
+        <Contact />
+      </main>
       <footer>
-        <p>Designed &amp; built by <strong>Melbin P Roy</strong> © 2025</p>
+        <p>Designed and built by <strong>Melbin P Roy</strong> - Portfolio 2026</p>
       </footer>
-    </BrowserRouter>
+    </>
   );
 }
 

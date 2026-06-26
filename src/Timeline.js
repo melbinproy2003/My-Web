@@ -13,11 +13,11 @@ function ExpCard({ item, index }) {
   useEffect(() => {
     const el = rowRef.current;
     if (!el) return;
+    if (el.closest('[data-section-intro]')) return;
 
     const ctx = gsap.context(() => {
       const isLeft = index % 2 === 0;
 
-      // Card slides in from alternating sides
       gsap.fromTo(el.querySelector('.exp-card'),
         { opacity: 0, x: isLeft ? -60 : 60, scale: 0.92 },
         {
@@ -27,7 +27,6 @@ function ExpCard({ item, index }) {
         }
       );
 
-      // Dot — scale pop
       const dot = el.querySelector('.timeline-dot');
       if (dot) {
         gsap.fromTo(dot,
@@ -38,7 +37,6 @@ function ExpCard({ item, index }) {
           }
         );
 
-        // Pulse animation for current job
         if (current) {
           gsap.to(dot, {
             boxShadow: '0 0 0 8px rgba(68, 185, 108, 0.3)',
@@ -50,7 +48,6 @@ function ExpCard({ item, index }) {
         }
       }
 
-      // List items stagger
       const listItems = el.querySelectorAll('.exp-points li');
       if (listItems.length) {
         gsap.fromTo(listItems,
@@ -68,22 +65,22 @@ function ExpCard({ item, index }) {
   }, [index, current]);
 
   return (
-    <div className={`exp-row ${index % 2 === 0 ? 'left' : 'right'}`} ref={rowRef}>
-      <div className="timeline-dot-wrap">
-        <div className={`timeline-dot${item.current ? ' current' : ''}`} style={{ transform: 'scale(0)' }} />
+    <div className="relative block pl-12 pb-[22px] max-md:pl-0 max-md:pb-4" ref={rowRef}>
+      <div className="absolute left-0 top-6 w-[25px] flex items-center justify-center max-md:hidden">
+        <div className={`timeline-dot w-[13px] h-[13px] rounded-full bg-surface-strong border-[3px] border-bg-primary ${item.current ? '' : ''}`} />
       </div>
-      <div className="exp-card" style={{ opacity: 0 }}>
-        <span className="exp-type">{item.type}</span>
-        <h3>{item.role}</h3>
-        <p className="exp-company">{item.company}</p>
-        <div className="exp-duration">
+      <div className="exp-card border border-black/15 rounded bg-surface/64 p-6">
+        <span className="inline-flex items-center gap-[6px] min-h-[28px] px-[10px] border border-black/15 rounded-full bg-white/35 text-ink-soft text-xs font-extrabold">{item.type}</span>
+        <h3 className="mt-3 mb-1 text-ink text-xl">{item.role}</h3>
+        <p className="text-ink-soft font-extrabold">{item.company}</p>
+        <div className="flex flex-wrap items-center gap-2 my-2 mb-[14px] text-ink-muted text-sm font-[750]">
           <FiCalendar size={13} />
           {item.duration}
-          {item.current && <span className="current-badge">● Now</span>}
+          {item.current && <span className="inline-flex items-center gap-[6px] min-h-[28px] px-[10px] border border-black/15 rounded-full bg-white/35 text-ink-soft text-xs font-extrabold">● Now</span>}
         </div>
-        <ul className="exp-points">
+        <ul className="list-none exp-points">
           {item.points.map((pt) => (
-            <li key={pt} style={{ opacity: 0 }}>{pt}</li>
+              <li key={pt} className="relative pl-[18px] text-ink-soft text-[0.92rem] leading-[1.65] before:content-[''] before:absolute before:left-0 before:top-[0.75em] before:w-[6px] before:h-[6px] before:rounded-full before:bg-ink-muted">{pt}</li>
           ))}
         </ul>
       </div>
@@ -97,8 +94,10 @@ export default function Timeline() {
   const lineRef = useRef(null);
 
   useEffect(() => {
+    const isInsideIntro = sectionRef.current?.closest('[data-section-intro]');
+    if (isInsideIntro) return;
+
     const ctx = gsap.context(() => {
-      // Header
       const h2 = headerRef.current?.querySelector('h2');
       const divider = headerRef.current?.querySelector('.divider');
 
@@ -117,7 +116,6 @@ export default function Timeline() {
         );
       }
 
-      // Progressive timeline line draw
       if (lineRef.current) {
         gsap.fromTo(lineRef.current,
           { scaleY: 0, transformOrigin: 'top center' },
@@ -139,16 +137,18 @@ export default function Timeline() {
   }, []);
 
   return (
-    <section id="experience" ref={sectionRef}>
-      <div className="section-header" ref={headerRef}>
-        <h2 style={{ opacity: 0 }}>
-          Experience &amp; <span>Education</span>
-        </h2>
-        <div className="divider" style={{ transform: 'scaleX(0)' }} />
+    <section id="experience" className="px-6 py-24 max-md:px-[18px] max-md:py-[76px]" ref={sectionRef}>
+      <div className="max-w-content mx-auto" ref={headerRef}>
+        <div className="flex items-end justify-between gap-6 pt-[130px] mb-[46px] border-t border-black/30 max-md:block max-md:pt-[92px]">
+          <h2 className="text-[clamp(2.8rem,7vw,6.5rem)] font-black leading-[0.9] tracking-[0] text-ink">
+            Experience &amp; <span className="text-ink-muted">Education</span>
+          </h2>
+          <div className="divider w-[110px] h-px bg-black/30 max-md:mt-[18px]" />
+        </div>
       </div>
 
-      <div className="experience-wrap">
-        <div className="timeline-line" ref={lineRef} style={{ transform: 'scaleY(0)' }} />
+      <div className="experience-wrap relative max-w-[980px] mx-auto max-md:max-w-full">
+        <div className="absolute left-3 top-0 bottom-0 w-px bg-black/30 max-md:hidden" ref={lineRef} />
         {experience.map((item, i) => (
           <ExpCard key={item.id} item={item} index={i} />
         ))}

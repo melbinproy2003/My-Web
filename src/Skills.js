@@ -12,18 +12,18 @@ const row2 = [...allSkills].reverse();
 function SkillPill({ skill }) {
   const [error, setError] = useState(false);
   return (
-    <div className="skill-pill">
+    <div className="inline-flex items-center gap-[10px] min-h-[48px] px-4 border border-black/15 rounded-full bg-surface/66 text-ink whitespace-nowrap">
       {skill.icon && !error ? (
         <img
           src={`https://skillicons.dev/icons?i=${skill.icon}`}
           alt={skill.name}
-          className="skill-pill-icon"
+          className="w-6 h-6"
           onError={() => setError(true)}
         />
       ) : (
-        <div className="skill-pill-fallback">{skill.name.charAt(0)}</div>
+        <div className="w-6 h-6 grid place-items-center rounded-full bg-surface-strong text-surface text-[0.72rem] font-black">{skill.name.charAt(0)}</div>
       )}
-      <span className="skill-pill-name">{skill.name}</span>
+      <span className="text-ink-soft text-sm font-[750]">{skill.name}</span>
     </div>
   );
 }
@@ -34,8 +34,10 @@ export default function Skills() {
   const marqueeRef = useRef(null);
 
   useEffect(() => {
+    const isInsideIntro = sectionRef.current?.closest('[data-section-intro]');
+    if (isInsideIntro) return;
+
     const ctx = gsap.context(() => {
-      // Header
       const h2 = headerRef.current?.querySelector('h2');
       const divider = headerRef.current?.querySelector('.divider');
 
@@ -54,7 +56,6 @@ export default function Skills() {
         );
       }
 
-      // Marquee rows scale up from zero height
       const tracks = marqueeRef.current?.querySelectorAll('.marquee-track-wrap');
       if (tracks) {
         gsap.fromTo(tracks,
@@ -67,7 +68,6 @@ export default function Skills() {
         );
       }
 
-      // Scroll-linked marquee speed boost
       const leftTrack = marqueeRef.current?.querySelector('.marquee-left');
       const rightTrack = marqueeRef.current?.querySelector('.marquee-right');
 
@@ -97,25 +97,27 @@ export default function Skills() {
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef}>
-      <div className="section-header" ref={headerRef}>
-        <h2 style={{ opacity: 0 }}>
-          My <span>Skills</span>
-        </h2>
-        <div className="divider" style={{ transform: 'scaleX(0)' }} />
+    <section id="skills" className="px-6 py-24 max-md:px-[18px] max-md:py-[76px]" ref={sectionRef}>
+      <div className="max-w-content mx-auto" ref={headerRef}>
+        <div className="flex items-end justify-between gap-6 pt-[130px] mb-[46px] border-t border-black/30 max-md:block max-md:pt-[92px]">
+          <h2 className="text-[clamp(2.8rem,7vw,6.5rem)] font-black leading-[0.9] tracking-[0] text-ink">
+            My <span className="text-ink-muted">Skills</span>
+          </h2>
+          <div className="divider w-[110px] h-px bg-black/30 max-md:mt-[18px]" />
+        </div>
       </div>
 
-      <div className="marquee-wrapper" ref={marqueeRef}>
-        <div className="marquee-track-wrap" style={{ opacity: 0 }}>
-          <div className="marquee-track marquee-left">
+      <div className="max-w-content mx-auto flex flex-col gap-4 overflow-hidden mask-edges" ref={marqueeRef}>
+        <div className="marquee-track-wrap overflow-hidden">
+          <div className="marquee-track flex w-max gap-3 animate-marquee-left hover:[animation-play-state:paused]">
             {[...row1, ...row1].map((skill, i) => (
               <SkillPill key={`r1-${i}`} skill={skill} />
             ))}
           </div>
         </div>
 
-        <div className="marquee-track-wrap" style={{ opacity: 0 }}>
-          <div className="marquee-track marquee-right">
+        <div className="marquee-track-wrap overflow-hidden">
+          <div className="marquee-track flex w-max gap-3 animate-marquee-right hover:[animation-play-state:paused]">
             {[...row2, ...row2].map((skill, i) => (
               <SkillPill key={`r2-${i}`} skill={skill} />
             ))}

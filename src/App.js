@@ -15,7 +15,6 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 function App() {
   useEffect(() => {
-    // Refresh ScrollTrigger after all content loads
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 500);
@@ -26,7 +25,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className="one-page">
+      <main className="overflow-hidden">
         <Home />
         <Projects />
         <About />
@@ -35,8 +34,10 @@ function App() {
         <Timeline />
         <Contact />
       </main>
-      <footer>
-        <p>Designed and built by <strong>Melbin P Roy</strong> - Portfolio 2026</p>
+      <footer className="w-[min(1180px,calc(100%-48px))] mx-auto py-7 pb-9 border-t border-black/30">
+        <p className="text-ink-muted text-sm font-bold">
+          Designed and built by <strong className="text-ink">Melbin P Roy</strong> - Portfolio 2026
+        </p>
       </footer>
     </>
   );

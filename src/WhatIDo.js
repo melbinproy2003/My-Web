@@ -22,8 +22,10 @@ export default function WhatIDo() {
   const cardsRef = useRef(null);
 
   useEffect(() => {
+    const isInsideIntro = sectionRef.current?.closest('[data-section-intro]');
+    if (isInsideIntro) return;
+
     const ctx = gsap.context(() => {
-      // Header
       const h2 = headerRef.current?.querySelector('h2');
       const divider = headerRef.current?.querySelector('.divider');
 
@@ -42,7 +44,6 @@ export default function WhatIDo() {
         );
       }
 
-      // Cards — 3D flip-in with stagger
       const cards = cardsRef.current?.querySelectorAll('.service-card');
       if (cards) {
         gsap.fromTo(cards,
@@ -55,7 +56,6 @@ export default function WhatIDo() {
         );
       }
 
-      // Icon wraps spin in
       const icons = cardsRef.current?.querySelectorAll('.service-icon-wrap');
       if (icons) {
         gsap.fromTo(icons,
@@ -73,24 +73,26 @@ export default function WhatIDo() {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef}>
-      <div className="section-header" ref={headerRef}>
-        <h2 style={{ opacity: 0 }}>
-          What I <span>Do</span>
-        </h2>
-        <div className="divider" style={{ transform: 'scaleX(0)' }} />
+    <section id="services" className="px-6 py-24 max-md:px-[18px] max-md:py-[76px]" ref={sectionRef}>
+      <div className="max-w-content mx-auto" ref={headerRef}>
+        <div className="flex items-end justify-between gap-6 pt-[130px] mb-[46px] border-t border-black/30 max-md:block max-md:pt-[92px]">
+          <h2 className="text-[clamp(2.8rem,7vw,6.5rem)] font-black leading-[0.9] tracking-[0] text-ink">
+            What I <span className="text-ink-muted">Do</span>
+          </h2>
+          <div className="divider w-[110px] h-px bg-black/30 max-md:mt-[18px]" />
+        </div>
       </div>
 
-      <div className="services-wrap">
-        <div className="services-grid" ref={cardsRef}>
+      <div className="max-w-content mx-auto">
+        <div className="grid grid-cols-4 gap-[14px] max-lg:grid-cols-2 max-md:grid-cols-1" ref={cardsRef}>
           {SERVICES.map(({ num, Icon, title, desc }) => (
-            <div key={num} className="service-card" style={{ opacity: 0 }}>
-              <span className="service-num">{num}</span>
-              <div className="service-icon-wrap" style={{ opacity: 0 }}>
+            <div key={num} className="group service-card border border-black/15 rounded bg-surface/64 p-6 min-h-[270px] transition-all duration-[180ms] ease-[ease] hover:-translate-y-1 hover:border-black/30 hover:shadow-card-hover">
+              <span className="block text-ink-muted text-[0.82rem] font-black mb-[22px]">{num}</span>
+              <div className="service-icon-wrap w-[44px] h-[44px] grid place-items-center mb-[18px] border border-black/15 rounded-full text-ink transition-all duration-300 ease-[ease] group-hover:rotate-[15deg] group-hover:scale-110 group-hover:border-surface-strong group-hover:bg-surface-strong group-hover:text-surface">
                 <Icon size={28} />
               </div>
-              <h3 className="service-title">{title}</h3>
-              <p className="service-desc">{desc}</p>
+              <h3 className="text-ink text-[1.05rem] leading-[1.2] mb-[10px]">{title}</h3>
+              <p className="text-ink-soft text-[0.9rem] leading-[1.65]">{desc}</p>
             </div>
           ))}
         </div>

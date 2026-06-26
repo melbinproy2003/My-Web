@@ -36,12 +36,12 @@ function Counter({ target, suffix, label, delay = 0 }) {
   }, [inView, count, target, delay]);
 
   return (
-    <div ref={ref} className="stat-box">
-      <span className="stat-value">
+    <div ref={ref} className="stat-box border border-black/15 rounded bg-surface/64 p-[18px] transition-[transform,border-color,box-shadow] duration-[180ms] ease-[ease] hover:-translate-y-1 hover:border-black/30 hover:shadow-card-hover">
+      <span className="block text-[2.2rem] font-black leading-[1] text-ink">
         <motion.span>{rounded}</motion.span>
         {suffix}
       </span>
-      <span className="stat-label">{label}</span>
+      <span className="block mt-[7px] text-ink-muted text-xs font-extrabold uppercase tracking-[0.08em]">{label}</span>
     </div>
   );
 }
@@ -54,8 +54,10 @@ export default function About() {
   const statsRef = useRef(null);
 
   useEffect(() => {
+    const isInsideIntro = sectionRef.current?.closest('[data-section-intro]');
+    if (isInsideIntro) return;
+
     const ctx = gsap.context(() => {
-      // Header slide in
       const h2 = headerRef.current?.querySelector('h2');
       const divider = headerRef.current?.querySelector('.divider');
 
@@ -74,7 +76,6 @@ export default function About() {
         );
       }
 
-      // Text content — slide up with stagger
       const paragraphs = textRef.current?.querySelectorAll('h3, p');
       if (paragraphs) {
         gsap.fromTo(paragraphs,
@@ -87,7 +88,6 @@ export default function About() {
         );
       }
 
-      // Stats — scale up with bounce
       const statBoxes = statsRef.current?.querySelectorAll('.stat-box');
       if (statBoxes) {
         gsap.fromTo(statBoxes,
@@ -100,7 +100,6 @@ export default function About() {
         );
       }
 
-      // Tech pills — stagger from left
       const pills = techRef.current?.querySelectorAll('.tech-pill');
       if (pills) {
         gsap.fromTo(pills,
@@ -113,7 +112,6 @@ export default function About() {
         );
       }
 
-      // CTA button
       const btn = sectionRef.current?.querySelector('.btn-green');
       if (btn) {
         gsap.fromTo(btn,
@@ -130,38 +128,40 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef}>
-      <div className="section-header" ref={headerRef}>
-        <h2 style={{ opacity: 0 }}>
-          About <span>Me</span>
-        </h2>
-        <div className="divider" style={{ transform: 'scaleX(0)' }} />
+    <section id="about" className="px-6 py-24 max-md:px-[18px] max-md:py-[76px]" ref={sectionRef}>
+      <div className="max-w-content mx-auto" ref={headerRef}>
+        <div className="flex items-end justify-between gap-6 pt-[130px] mb-[46px] border-t border-black/30 max-md:block max-md:pt-[92px]">
+          <h2 className="text-[clamp(2.8rem,7vw,6.5rem)] font-black leading-[0.9] tracking-[0] text-ink">
+            About <span className="text-ink-muted">Me</span>
+          </h2>
+          <div className="divider w-[110px] h-px bg-black/30 max-md:mt-[18px]" />
+        </div>
       </div>
 
-      <div className="about-grid">
-        <div className="about-text" ref={textRef}>
-          <h3 style={{ opacity: 0 }}>
-            Junior AI Engineer &amp; <span>Full Stack Developer</span>
+      <div className="max-w-content mx-auto grid grid-cols-[1.1fr_0.9fr] gap-14 items-start max-lg:grid-cols-1 max-lg:gap-10">
+        <div ref={textRef}>
+          <h3 className="text-[clamp(1.8rem,4vw,4rem)] leading-[1] tracking-[0] text-ink mb-[22px]">
+            Junior AI Engineer &amp; <span className="text-ink-muted">Full Stack Developer</span>
           </h3>
-          <p style={{ opacity: 0 }}>
+          <p className="text-ink-soft text-base leading-[1.75] mb-4">
             I'm Melbin P Roy — a Full Stack and Mobile Developer currently working as a
             Junior AI Engineer at Phi-Intelligence. With a solid foundation in Python-based
             backends, modern frontend frameworks, and cross-platform mobile development,
             I build complete products end-to-end.
           </p>
-          <p style={{ opacity: 0 }}>
+          <p className="text-ink-soft text-base leading-[1.75] mb-4">
             I'm passionate about integrating AI into real-world applications — working with
             LangChain, TensorFlow, and OpenAI API — while continuously expanding my expertise
             in DevOps and Cybersecurity.
           </p>
 
-          <a href="#contact" className="btn btn-green" style={{ opacity: 0, marginTop: '24px' }}>
+          <a href="#contact" className="btn-green inline-flex items-center justify-center gap-2 min-h-[42px] px-4 border border-black/30 rounded-full text-surface no-underline text-sm font-[750] bg-surface-strong transition-[background,color,border-color,transform] duration-[180ms] ease-[ease] hover:bg-surface-strong hover:border-surface-strong hover:text-surface hover:-translate-y-px mt-6">
             Let's Connect
           </a>
         </div>
 
-        <div className="about-details">
-          <div className="about-stats" ref={statsRef}>
+        <div className="flex flex-col gap-5">
+          <div className="grid grid-cols-3 gap-[10px] mb-0 mx-0 mt-0 max-md:grid-cols-1" ref={statsRef}>
             {STATS.map((s, i) => (
               <Counter
                 key={s.label}
@@ -173,13 +173,13 @@ export default function About() {
             ))}
           </div>
 
-          <div className="about-tech" ref={techRef}>
+          <div className="grid gap-3 mb-[30px]" ref={techRef}>
             {TECH_CATEGORIES.map((cat) => (
-              <div key={cat.label} className="tech-row">
-                <span className="tech-cat-label">{cat.label}</span>
-                <div className="tech-pills">
+              <div key={cat.label} className="grid grid-cols-[120px_minmax(0,1fr)] gap-[14px] items-start pb-3 border-b border-black/15 max-md:grid-cols-1">
+                <span className="text-ink-muted text-xs font-extrabold uppercase tracking-[0.08em]">{cat.label}</span>
+                <div className="flex flex-wrap gap-2">
                   {cat.items.map((item) => (
-                    <span key={item} className="tech-pill" style={{ opacity: 0 }}>{item}</span>
+                    <span key={item} className="tech-pill inline-flex items-center gap-[6px] min-h-[28px] px-[10px] border border-black/15 rounded-full bg-white/35 text-ink-soft text-xs font-extrabold">{item}</span>
                   ))}
                 </div>
               </div>

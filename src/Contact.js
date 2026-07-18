@@ -22,9 +22,39 @@ export default function Contact() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
+  const isEmailJSConfigured = () => {
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+    return (
+      serviceId && serviceId !== 'your_service_id' &&
+      templateId && templateId !== 'your_template_id' &&
+      publicKey && publicKey !== 'your_public_key'
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
+
+    if (!isEmailJSConfigured()) {
+      console.warn(
+        "EmailJS is not configured. Falling back to mailto client. " +
+        "Please set REACT_APP_EMAILJS_SERVICE_ID, REACT_APP_EMAILJS_TEMPLATE_ID, and " +
+        "REACT_APP_EMAILJS_PUBLIC_KEY in your .env or .env.local file."
+      );
+      
+      const subject = encodeURIComponent(`Portfolio Contact from ${form.name}`);
+      const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
+      window.location.href = `mailto:melbinproy76@gmail.com?subject=${subject}&body=${body}`;
+      
+      setStatus('sent');
+      setForm({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+      return;
+    }
+
     try {
       await emailjs.send(
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
@@ -39,7 +69,8 @@ export default function Contact() {
       setStatus('sent');
       setForm({ name: '', email: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
-    } catch {
+    } catch (err) {
+      console.error("EmailJS Error: ", err);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }

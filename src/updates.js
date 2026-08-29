@@ -60,6 +60,19 @@ export const skillCategories = [
 export const experience = [
   {
     id: 1,
+    role: 'Master of Computer Applications (MCA) – Cybersecurity',
+    company: 'Amity University',
+    duration: '2026 – Present (Expected 2028)',
+    type: 'Education',
+    current: true,
+    points: [
+      'Specializing in Cybersecurity, network defense, application security, and ethical hacking principles',
+      'Studying cloud security, cryptography, and secure software development lifecycles',
+      'Pursuing advanced postgraduate degree alongside professional AI engineering work',
+    ],
+  },
+  {
+    id: 2,
     role: 'Junior AI Engineer',
     company: 'Phi-Intelligence',
     duration: 'Dec 2025 – Present',
@@ -72,7 +85,7 @@ export const experience = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     role: 'Junior Software Developer',
     company: 'Triangle Software Solutions',
     duration: 'Apr 2025 – Nov 2025',
@@ -85,7 +98,7 @@ export const experience = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     role: 'Python Full Stack Developer Intern',
     company: 'Inmakes Infotech',
     duration: 'Jan 2024 – Apr 2024',
@@ -98,7 +111,7 @@ export const experience = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     role: 'Bachelor of Computer Applications (BCA)',
     company: 'MG University',
     duration: '2021 – 2024',

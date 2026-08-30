@@ -125,6 +125,154 @@ export const experience = [
   },
 ];
 
+export const professionalProjects = [
+  {
+    id: 'prof-1',
+    title: 'Multi-Tenant HR & Payroll Management Platform',
+    subtitle: 'Enterprise HR, Workforce & Payroll Management System',
+    description:
+      'A multi-tenant enterprise management platform designed to manage HR operations, employees, attendance, shifts, payroll, finance, geofencing, permissions, and organization-level data across multiple companies.',
+    tech: ['Next.js', 'React', 'FastAPI', 'PostgreSQL', 'PostGIS', 'Redis', 'Celery', 'Docker', 'AWS'],
+    badge: 'Professional Project • Confidential',
+    isConfidential: true,
+    category: 'professional',
+    role: 'Software Developer',
+    projectType: 'Enterprise / Professional Production Project',
+    overview:
+      'A multi-tenant enterprise management platform designed to manage HR operations, employees, attendance, shifts, payroll, finance, geofencing, permissions, and organization-level data across multiple companies.',
+    contributions: [
+      'Developed and maintained multi-tenant architecture with tenant-based data isolation',
+      'Worked on employee and HR management modules',
+      'Implemented attendance check-in, checkout, break-in and break-out workflows',
+      'Developed shift, branch, department and designation management',
+      'Worked on payroll generation and salary calculation workflows',
+      'Implemented employee finance features including bonuses, fines, advances and increments',
+      'Worked on geofence-based functionality using PostGIS',
+      'Implemented role-based access control and custom role hierarchy',
+      'Worked on authentication and SSO integrations',
+      'Developed and integrated REST APIs',
+      'Fixed frontend, backend and database issues in production',
+      'Worked on admin dashboards and management workflows',
+      'Worked with Docker and cloud deployment infrastructure',
+    ],
+    technicalHighlights: [
+      'Multi-tenant schema & tenant-based data isolation',
+      'Geofencing & location verification via PostGIS',
+      'Asynchronous task processing with Redis & Celery',
+      'Payroll generation & complex finance calculation workflows',
+      'Role-based access control & custom role hierarchy',
+    ],
+  },
+  {
+    id: 'prof-2',
+    title: 'Car Wash Management Platform',
+    subtitle: 'Workforce, Job & Service Management Platform',
+    description:
+      'A production platform for managing car wash operations, workers, jobs, teams, supervisors, service workflows, location tracking, notifications, payroll and administrative operations.',
+    tech: ['React Native', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery', 'PostGIS', 'Firebase', 'Docker', 'AWS'],
+    badge: 'Professional Project • Confidential',
+    isConfidential: true,
+    category: 'professional',
+    role: 'Software Developer (Mobile & Backend Integration)',
+    projectType: 'Enterprise / Professional Production Project',
+    overview:
+      'A production platform for managing car wash operations, workers, jobs, teams, supervisors, service workflows, location tracking, notifications, payroll and administrative operations.',
+    contributions: [
+      'Developed mobile application functionality for workers',
+      'Implemented job creation and assignment workflows',
+      'Worked on worker, supervisor, manager and admin roles',
+      'Implemented location tracking and geofencing',
+      'Worked on background location tracking',
+      'Implemented job/service management workflows',
+      'Worked on team and shift assignment',
+      'Integrated push notifications',
+      'Worked on payroll and finance modules',
+      'Developed and maintained admin dashboard functionality',
+      'Integrated frontend applications with FastAPI APIs',
+      'Debugged Android production and build issues',
+      'Worked on AWS/cloud deployment and production issues',
+    ],
+    technicalHighlights: [
+      'Background location tracking & PostGIS geofencing',
+      'Worker mobile application in React Native & TypeScript',
+      'Firebase Cloud Messaging push notification system',
+      'Team & shift assignment workflows with worker roles',
+      'AWS cloud deployment & production issue resolution',
+    ],
+  },
+  {
+    id: 'prof-3',
+    title: 'E-Commerce & Product Management Platform',
+    subtitle: 'Product, Variant, Inventory & Commerce Management System',
+    description:
+      'A production e-commerce platform with advanced product management, product variants, inventory, pricing, quotation/sample workflows and administrative operations.',
+    tech: ['React', 'Next.js', 'FastAPI', 'PostgreSQL', 'REST APIs', 'Docker', 'AWS'],
+    badge: 'Professional Project • Confidential',
+    isConfidential: true,
+    category: 'professional',
+    role: 'Software Developer (Full Stack)',
+    projectType: 'Enterprise / Professional Production Project',
+    overview:
+      'A production e-commerce platform with advanced product management, product variants, inventory, pricing, quotation/sample workflows and administrative operations.',
+    contributions: [
+      'Developed product management workflows',
+      'Implemented product variant management',
+      'Worked on SKU and product image management',
+      'Implemented inventory and stock-related workflows',
+      'Worked on product pricing and tax functionality',
+      'Developed quote and sample request workflows',
+      'Worked on product detail and product showcasing UI',
+      'Improved admin panel usability',
+      'Fixed product and variant business logic issues',
+      'Integrated APIs between frontend and backend',
+      'Worked on payment and POS-related functionality',
+      'Improved responsive UI and user experience',
+    ],
+    technicalHighlights: [
+      'Advanced product variant & SKU management engine',
+      'Inventory & stock-related real-time tracking workflows',
+      'Quote and sample request lifecycle management',
+      'Integrated payment & POS-related functionality',
+      'FastAPI REST API integration with React/Next.js UI',
+    ],
+  },
+  {
+    id: 'prof-4',
+    title: 'GendocX',
+    subtitle: 'Collaborative Document Management Platform',
+    description:
+      'A web-based document management and collaboration platform designed to help users create, edit, manage, and collaborate on business documents through a centralized workspace.',
+    tech: ['Next.js', 'React', 'FastAPI', 'PostgreSQL', 'Collabora Online', 'Docker', 'AWS'],
+    badge: 'Professional Project • Confidential',
+    isConfidential: true,
+    category: 'professional',
+    role: 'Software Developer',
+    projectType: 'Enterprise / Professional Production Project',
+    overview:
+      'A web-based document management and collaboration platform designed to help users create, edit, manage, and collaborate on business documents through a centralized workspace.',
+    contributions: [
+      'Worked on document creation and management workflows',
+      'Implemented and improved document editing functionality',
+      'Integrated Collabora Online for document editing',
+      'Worked on document collaboration and sharing workflows',
+      'Developed and integrated REST APIs',
+      'Worked on frontend and backend feature implementation',
+      'Improved document-related UI and user experience',
+      'Debugged and resolved integration and production issues',
+      'Worked on authentication and user access workflows',
+      'Improved existing modules and business logic',
+      'Worked with containerized services and deployment environments',
+    ],
+    technicalHighlights: [
+      'Collabora Online document editing integration',
+      'Document collaboration & sharing workflows',
+      'REST API development with FastAPI & Next.js/React',
+      'User authentication & role access controls',
+      'Containerized deployment with Docker & AWS',
+    ],
+  },
+];
+
 export const projects = [
   {
     id: 1,
@@ -177,3 +325,5 @@ export const projects = [
     live: null,
   },
 ];
+
+export const personalProjects = projects;
